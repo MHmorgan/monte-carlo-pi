@@ -1,0 +1,4 @@
+numpy
+scipy
+prompt_toolkit
+matplotlib
