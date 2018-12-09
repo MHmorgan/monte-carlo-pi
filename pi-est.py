@@ -45,7 +45,7 @@ class MonteCarloPi:
 
     def deviation(self, ref):
         """Return the deviation between the current result and the given
-        reference value, in percentage
+        reference value, in range [0,1]
         """
         return abs(ref - self.result) / ref
 
@@ -91,7 +91,8 @@ if __name__ == '__main__':
     print('[ ] Pi can be estimated from a defined number of points or for a '
           'given deviation value.')
     if confirm('[?] Estimate from deviation value?', suffix=' (y/N) '):
-        dev = float(prompt('[?] Desired deviation: ', default='0.001'))
+        dev = float(
+            prompt('[?] Desired deviation (in %): ', default='0.001')) / 100
         step = int(prompt('[?] Step for each iteration: ', default='1000'))
         pi.estimate_deviation(dev, step, math.pi)
     else:
@@ -100,4 +101,4 @@ if __name__ == '__main__':
 
     pi.plot()
     print(HTML('[*] Pi were estimated to <b>{}</b> ({}, ~{:.5f}%)'
-               .format(pi.result, math.pi, pi.deviation(math.pi))))
+               .format(pi.result, math.pi, pi.deviation(math.pi) * 100)))
